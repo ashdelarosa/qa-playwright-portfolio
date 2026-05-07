@@ -16,17 +16,17 @@ This repository contains end-to-end UI automation tests built with Playwright an
 
 ## Project Structure
 
-'''txt
+```txt
 tests/
 .github/workflows/
 playwright.config.ts
-'''
+```
 
 ## Running Tests Locally
 
-'''bash
+```bash
 npx playwright test
-'''
+```
 
 ## Author
 
