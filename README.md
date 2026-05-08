@@ -4,9 +4,20 @@ This repository contains end-to-end UI automation tests built with Playwright an
 
 ## Covered Test Scenarios
 
-- Valid login flow
-- Inventory page validation
-- UI element assertions
+### Login
+- Valid login
+- Invalid password validation
+- Locked-out user validation
+
+### Cart
+- Add item to cart
+- Cart badge count validation
+- Cart item visibility validation
+
+### Checkout
+- Successful checkout flow
+- Checkout overview validation
+- Order completion validation
 
 ## Tech Stack
 
