@@ -30,3 +30,23 @@ test('user can complete checkout successfully', async ({ page }) => {
 
   await expect(page.getByText('Thank you for your order!')).toBeVisible();
 });
+
+test('user cannot continue checkout with empty required fields', async ({ page }) => {
+  await page.goto('https://www.saucedemo.com/');
+
+  await page.getByPlaceholder('Username').fill('standard_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await page.getByRole('button', { name: 'Add to cart' }).first().click();
+  await page.locator('.shopping_cart_link').click();
+
+  await page.getByRole('button', { name: 'Checkout' }).click();
+  await page.getByRole('button', { name: 'Continue' }).click();
+
+  await expect(page.locator('[data-test="error"]')).toContainText(
+    'Error: First Name is required'
+  );
+
+  await expect(page).toHaveURL(/checkout-step-one/);
+});
