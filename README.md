@@ -18,6 +18,8 @@ This repository contains end-to-end UI automation tests built with Playwright an
 - Successful checkout flow
 - Checkout overview validation
 - Order completion validation
+- Required fields validation
+- Checkout form error handling
 
 ## Tech Stack
 
