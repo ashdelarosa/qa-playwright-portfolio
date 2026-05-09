@@ -1,11 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { loginAsStandardUser } from '../utils/login';
 
 test('user can complete checkout successfully', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-
-  await page.getByPlaceholder('Username').fill('standard_user');
-  await page.getByPlaceholder('Password').fill('secret_sauce');
-  await page.getByRole('button', { name: 'Login' }).click();
+  await loginAsStandardUser(page);
 
   await page.getByRole('button', { name: 'Add to cart' }).first().click();
 
@@ -32,11 +29,7 @@ test('user can complete checkout successfully', async ({ page }) => {
 });
 
 test('user cannot continue checkout with empty required fields', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-
-  await page.getByPlaceholder('Username').fill('standard_user');
-  await page.getByPlaceholder('Password').fill('secret_sauce');
-  await page.getByRole('button', { name: 'Login' }).click();
+  await loginAsStandardUser(page);
 
   await page.getByRole('button', { name: 'Add to cart' }).first().click();
   await page.locator('.shopping_cart_link').click();
