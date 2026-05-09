@@ -1,8 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { loginAsStandardUser } from '../utils/login';
+import { LoginPage } from '../pages/LoginPage';
 
 test('user can log in with valid credentials', async ({ page }) => {
-  await loginAsStandardUser(page);
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+  await loginPage.login('standard_user', 'secret_sauce');
 
   await expect(page).toHaveURL(/inventory/);
   await expect(page.getByText('Products')).toBeVisible();
