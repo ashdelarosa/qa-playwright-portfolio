@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { loginAsStandardUser } from '../utils/login';
+import { InventoryPage } from '../pages/InventoryPage';
 
 test('user can add item to cart', async ({ page }) => {
   await loginAsStandardUser(page);
 
-  await page.getByRole('button', { name: 'Add to cart' }).first().click();
+  const inventoryPage = new InventoryPage(page);
 
-  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
-
-  await page.locator('.shopping_cart_link').click();
-
-  await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
+  await inventoryPage.addFirstItemToCart();
+  await inventoryPage.verifyCartBadgeCount('1');
+  await inventoryPage.openCart();
+  await inventoryPage.verifyItemVisible('Sauce Labs Backpack');
 });
