@@ -19,9 +19,7 @@ This repository contains end-to-end UI automation tests built with Playwright an
 - Checkout overview validation
 - Order completion validation
 - Required fields validation
-- Checkout form error handling
-- Last name required-field validation
-- Postal code required-field validation
+- Field-specific checkout validation errors
 
 ## Tech Stack
 
@@ -31,10 +29,27 @@ This repository contains end-to-end UI automation tests built with Playwright an
 
 ## Project Structure
 
+## Project Structure
+
 ```txt
-tests/
-.github/workflows/
-playwright.config.ts
+qa-playwright-portfolio/
+│
+├── tests/
+│   ├── saucedemo-login.spec.ts
+│   ├── saucedemo-cart.spec.ts
+│   └── saucedemo-checkout.spec.ts
+│
+├── pages/
+│   ├── LoginPage.ts
+│   ├── InventoryPage.ts
+│   └── CheckoutPage.ts
+│
+├── .github/
+│   └── workflows/
+│
+├── playwright.config.ts
+├── package.json
+└── README.md
 ```
 
 ## Running Tests Locally
