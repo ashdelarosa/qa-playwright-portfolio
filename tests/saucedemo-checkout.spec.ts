@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
 import { loginAsStandardUser } from '../utils/login';
 import { InventoryPage } from '../pages/InventoryPage';
 
 let inventoryPage: InventoryPage;
 
 test.beforeEach(async ({ page }) => {
-  await loginAsStandardUser(page);
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+  await loginPage.login('standard_user', 'secret_sauce');
 
   inventoryPage = new InventoryPage(page);
 
