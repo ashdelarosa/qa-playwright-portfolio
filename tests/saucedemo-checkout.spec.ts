@@ -2,18 +2,20 @@ import { test, expect } from '@playwright/test';
 import { loginAsStandardUser } from '../utils/login';
 import { InventoryPage } from '../pages/InventoryPage';
 
-test('user can complete checkout successfully', async ({ page }) => {
+let inventoryPage: InventoryPage;
+
+test.beforeEach(async ({ page }) => {
   await loginAsStandardUser(page);
 
-  const inventoryPage = new InventoryPage(page);
+  inventoryPage = new InventoryPage(page);
 
   await inventoryPage.addFirstItemToCart();
-  await inventoryPage.verifyCartBadgeCount('1');
   await inventoryPage.openCart();
-  await inventoryPage.verifyItemVisible('Sauce Labs Backpack');
 
   await page.getByRole('button', { name: 'Checkout' }).click();
+});
 
+test('user can complete checkout successfully', async ({ page }) => {
   await page.getByPlaceholder('First Name').fill('Ash');
   await page.getByPlaceholder('Last Name').fill('dela Rosa');
   await page.getByPlaceholder('Zip/Postal Code').fill('1234');
@@ -29,14 +31,6 @@ test('user can complete checkout successfully', async ({ page }) => {
 });
 
 test('user cannot continue checkout with empty required fields', async ({ page }) => {
-  await loginAsStandardUser(page);
-
-  const inventoryPage = new InventoryPage(page);
-
-  await inventoryPage.addFirstItemToCart();
-  await inventoryPage.openCart();
-
-  await page.getByRole('button', { name: 'Checkout' }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
 
   await expect(page.locator('[data-test="error"]')).toContainText(
@@ -47,15 +41,6 @@ test('user cannot continue checkout with empty required fields', async ({ page }
 });
 
 test('user cannot continue checkout without last name', async ({ page }) => {
-  await loginAsStandardUser(page);
-
-  const inventoryPage = new InventoryPage(page);
-
-  await inventoryPage.addFirstItemToCart();
-  await inventoryPage.openCart();
-
-  await page.getByRole('button', { name: 'Checkout' }).click();
-
   await page.getByPlaceholder('First Name').fill('Ash');
   await page.getByPlaceholder('Zip/Postal Code').fill('1234');
 
@@ -69,15 +54,6 @@ test('user cannot continue checkout without last name', async ({ page }) => {
 });
 
 test('user cannot continue checkout without postal code', async ({ page }) => {
-  await loginAsStandardUser(page);
-
-  const inventoryPage = new InventoryPage(page);
-
-  await inventoryPage.addFirstItemToCart();
-  await inventoryPage.openCart();
-
-  await page.getByRole('button', { name: 'Checkout' }).click();
-
   await page.getByPlaceholder('First Name').fill('Ash');
   await page.getByPlaceholder('Last Name').fill('dela Rosa');
 
