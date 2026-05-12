@@ -20,6 +20,8 @@ This repository contains end-to-end UI automation tests built with Playwright an
 - Order completion validation
 - Required fields validation
 - Checkout form error handling
+- Last name required-field validation
+- Postal code required-field validation
 
 ## Tech Stack
 
