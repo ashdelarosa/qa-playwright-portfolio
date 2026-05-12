@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
 
 let inventoryPage: InventoryPage;
 
@@ -19,52 +20,43 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('user can complete checkout successfully', async ({ page }) => {
-  await page.getByPlaceholder('First Name').fill('Ash');
-  await page.getByPlaceholder('Last Name').fill('dela Rosa');
-  await page.getByPlaceholder('Zip/Postal Code').fill('1234');
+  const checkoutPage = new CheckoutPage(page);
 
-  await page.getByRole('button', { name: 'Continue' }).click();
-
-  await expect(page.getByText('Checkout: Overview')).toBeVisible();
-  await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
-
-  await page.getByRole('button', { name: 'Finish' }).click();
-
-  await expect(page.getByText('Thank you for your order!')).toBeVisible();
+  await checkoutPage.fillCheckoutInfo('Ash', 'dela Rosa', '1234');
+  await checkoutPage.continueCheckout();
+  await checkoutPage.verifyCheckoutOverviewVisible();
+  await checkoutPage.finishCheckout();
+  await checkoutPage.verifyOrderComplete();
 });
 
 test('user cannot continue checkout with empty required fields', async ({ page }) => {
-  await page.getByRole('button', { name: 'Continue' }).click();
+  const checkoutPage = new CheckoutPage(page);
 
-  await expect(page.locator('[data-test="error"]')).toContainText(
-    'Error: First Name is required'
-  );
+  await checkoutPage.fillCheckoutInfo('', 'dela Rosa', '1234');
+  await checkoutPage.continueCheckout();
+  await expect(checkoutPage.getErrorMessage()).toContainText('Error: First Name is required');
 
   await expect(page).toHaveURL(/checkout-step-one/);
 });
 
 test('user cannot continue checkout without last name', async ({ page }) => {
-  await page.getByPlaceholder('First Name').fill('Ash');
-  await page.getByPlaceholder('Zip/Postal Code').fill('1234');
+  const checkoutPage = new CheckoutPage(page);
 
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await checkoutPage.fillCheckoutInfo('Ash', '', '1234');
+  await checkoutPage.continueCheckout();
 
-  await expect(page.locator('[data-test="error"]')).toContainText(
-    'Error: Last Name is required'
-  );
+  await expect(checkoutPage.getErrorMessage()).toContainText('Error: Last Name is required');
 
   await expect(page).toHaveURL(/checkout-step-one/);
 });
 
 test('user cannot continue checkout without postal code', async ({ page }) => {
-  await page.getByPlaceholder('First Name').fill('Ash');
-  await page.getByPlaceholder('Last Name').fill('dela Rosa');
+  const checkoutPage = new CheckoutPage(page);
 
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await checkoutPage.fillCheckoutInfo('Ash', 'dela Rosa', '');
+  await checkoutPage.continueCheckout();
 
-  await expect(page.locator('[data-test="error"]')).toContainText(
-    'Error: Postal Code is required'
-  );
+  await expect(checkoutPage.getErrorMessage()).toContainText('Error: Postal Code is required');
 
   await expect(page).toHaveURL(/checkout-step-one/);
 });
