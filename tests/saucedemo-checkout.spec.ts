@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-import { loginAsStandardUser } from '../utils/login';
 import { InventoryPage } from '../pages/InventoryPage';
 
 let inventoryPage: InventoryPage;
