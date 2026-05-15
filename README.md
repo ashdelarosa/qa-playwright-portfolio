@@ -21,6 +21,12 @@ This repository contains end-to-end UI automation tests built with Playwright an
 - Required fields validation
 - Field-specific checkout validation errors
 
+### The Internet Practice Site
+- Valid login flow
+- Invalid password validation
+- Invalid username validation
+- Network response validation for login redirect
+
 ## Tech Stack
 
 - Playwright
@@ -38,11 +44,14 @@ qa-playwright-portfolio/
 │   ├── saucedemo-login.spec.ts
 │   ├── saucedemo-cart.spec.ts
 │   └── saucedemo-checkout.spec.ts
+│   ├── the-internet-login.spec.ts
+│   └── the-internet-network.spec.ts
 │
 ├── pages/
 │   ├── LoginPage.ts
 │   ├── InventoryPage.ts
 │   └── CheckoutPage.ts
+│   └── TheInternetLoginPage.ts
 │
 ├── .github/
 │   └── workflows/
