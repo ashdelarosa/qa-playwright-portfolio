@@ -1,3 +1,4 @@
+![Playwright Tests](https://github.com/ashdelarosa/qa-playwright-portfolio/actions/workflows/playwright.yml/badge.svg)
 # Playwright QA Automation Portfolio
 
 This repository contains end-to-end UI automation tests built with Playwright and TypeScript.
@@ -35,8 +36,6 @@ This repository contains end-to-end UI automation tests built with Playwright an
 
 ## Project Structure
 
-## Project Structure
-
 ```txt
 qa-playwright-portfolio/
 │
@@ -67,7 +66,8 @@ qa-playwright-portfolio/
 npx playwright test
 ```
 
+
 ## Author
 
 Mark Ashley dela Rosa  
-Software QA who loves breaking things gently.
+QA Engineer focused on edge cases, usability, and real-world behavior.

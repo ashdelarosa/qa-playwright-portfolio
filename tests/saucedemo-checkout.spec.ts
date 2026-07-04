@@ -3,10 +3,10 @@ import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 
-let inventoryPage: InventoryPage;
-
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
+
+  let inventoryPage: InventoryPage;
 
   await loginPage.goto();
   await loginPage.login('standard_user', 'secret_sauce');
