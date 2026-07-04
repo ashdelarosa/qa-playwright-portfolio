@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Playwright automation portfolio project for UI end-to-end testing",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ashdelarosa/qa-playwright-portfolio.git"
@@ -18,11 +23,5 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0"
-  }
-  "scripts": {
-  "test": "playwright test",
-  "test:ui": "playwright test --ui",
-  "test:headed": "playwright test --headed",
-  "report": "playwright show-report"
   }
 }

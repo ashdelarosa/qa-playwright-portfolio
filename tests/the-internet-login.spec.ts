@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { TheInternetLoginPage } from '../pages/TheInternetLoginPage';
 
-test('user log in with valid credentials', async ({ page }) => {
+test('user can log in with valid credentials', async ({ page }) => {
     const loginPage = new TheInternetLoginPage(page);
 
     await loginPage.goto();
